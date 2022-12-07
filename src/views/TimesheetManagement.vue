@@ -1,5 +1,10 @@
 <template>
-  <SideBar />
+    <div>
+        <SideBar />
+        <v-container>
+            <h1>This is an timesheet page</h1>
+        </v-container>
+    </div>
 </template>
 
 <script>
@@ -7,6 +12,7 @@
 
   export default {
     name: 'Home',
+
     components: {
       SideBar,
     },

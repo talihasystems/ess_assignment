@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "@mdi/js": "^7.0.96",
+    "axios": "^1.2.1",
+    "firebase": "^8.10.0",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
     "vuetify": "^2.6.0",
