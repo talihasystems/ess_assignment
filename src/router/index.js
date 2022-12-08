@@ -4,6 +4,8 @@ import HomeView from '../views/HomeView.vue'
 import Register from "../views/Register.vue";
 import Login from "../views/Login.vue";
 import TimesheetManagement from "../views/TimesheetManagement";
+import LeaveManagement from "../views/LeaveManagement"
+import CreateLeave from "../views/CreateLeave"
 import firebase from "firebase";
 
 Vue.use(VueRouter)
@@ -28,6 +30,16 @@ const routes = [
     path: '/timesheet',
     name: 'timesheet',
     component: TimesheetManagement
+  },
+  {
+    path: '/leaves',
+    name: 'leaves',
+    component: LeaveManagement
+  },
+  {
+    path: '/create-leave',
+    name: 'createLeave',
+    component: CreateLeave
   },
   {
     path: '/about',
