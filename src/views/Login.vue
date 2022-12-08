@@ -26,7 +26,7 @@
       <v-btn
         type="submit"
         x-large
-        dark
+        color="primary"
         style="margin-left: 30px"
       >
         Sign In

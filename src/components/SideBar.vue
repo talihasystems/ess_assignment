@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-app-bar dark>
+    <v-app-bar class="blue" dark>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>SYSTEMS</v-toolbar-title>
       <v-btn  icon @click="signOut">
