@@ -3,6 +3,9 @@
     <v-app-bar>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>SYSTEMS</v-toolbar-title>
+      <v-btn  icon @click="signOut">
+       <v-icon>mdi-export</v-icon>
+      </v-btn>
     </v-app-bar>
 
 
@@ -66,19 +69,56 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
+
+    
     </div>
+
+    
 </div>
    
 </template>
 
 <script>
+  import firebase from "firebase";
   export default {
     name: 'SideBar',
     data: () => ({
       drawer: false,
       group: null,
+      // loggedIn: false
     }),
+
+    // mounted() {
+    //   this.setupFirebase();
+    // },
+    methods: {
+      // setupFirebase() {
+      //   firebase.auth().onAuthStateChanged(user => {
+      //     if (user) {
+      //       // User is signed in.
+      //       console.log("signed in");
+      //       this.loggedIn = true;
+      //     } else {
+      //       // No user is signed in.
+      //       this.loggedIn = false;
+      //       console.log("signed out", this.loggedIn);
+      //     }
+      //   });
+      // },
+      signOut() {
+        firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            this.$router.replace({ name: "login" });
+          });
+      }
+    },
   }
+
+
+
+  
 </script>
 
 <style scoped>

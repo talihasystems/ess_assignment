@@ -4,7 +4,6 @@
     <v-card class="signin">
       <v-form
         ref="form"
-        v-model="valid"
         lazy-validation
         @submit.prevent="userLogin"
         class="formStyle"
@@ -12,7 +11,6 @@
       
       <v-text-field
         v-model="user.email"
-        :rules="emailRules"
         label="E-mail"
         required
       ></v-text-field>
