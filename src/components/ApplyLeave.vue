@@ -36,6 +36,101 @@
             </v-card>
             </v-col>
         </v-row>
+
+      <v-form v-model="valid">
+  
+      <v-row>
+      <v-col
+        cols="12"
+        sm="6"
+      >
+        <v-menu
+          ref="menu"
+          v-model="startMenue"
+          :close-on-content-click="false"
+          :return-value.sync="dates"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="startDate"
+              label="Start Date"
+              append-icon="mdi-calendar"
+              readonly
+              outlined
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="startDate"
+            no-title
+            scrollable
+          >
+          </v-date-picker>
+        </v-menu>
+      </v-col>
+
+      <v-col
+        cols="12"
+        sm="6"
+      >
+        <v-menu
+          ref="menu"
+          v-model="endMenue"
+          :close-on-content-click="false"
+          :return-value.sync="dates"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="endDate"
+              label="End Date"
+              append-icon="mdi-calendar"
+              outlined
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="endDate"
+            no-title
+            scrollable
+          >
+          </v-date-picker>
+        </v-menu>
+      </v-col>
+
+        <v-col
+          cols="12"
+          md="12"
+        >
+          <v-textarea
+            label="Reason"
+            outlined
+            required
+          ></v-textarea>
+        </v-col>
+      </v-row>
+
+
+      <v-row class="buttonStyle">
+        <v-btn
+          type="submit"
+          x-large
+          color="primary"
+          style="margin: 0px 10px 20px 0px"
+        >
+          Submit for Approval
+        </v-btn>
+      </v-row>
+      
+    </v-form>
     </v-card>
     </v-container>
     
@@ -49,6 +144,12 @@ export default {
       this.$store.dispatch("fetchLeaves"); 
     }
   },
+  data: () => ({
+      startDate: '',
+      endDate: '',
+      startMenu: false,
+      endMenue: false,
+  }),
 };
 </script>
 
@@ -60,5 +161,8 @@ export default {
 }
 .row{
     margin: 0px;
+}
+.buttonStyle{
+  justify-content: flex-end;
 }
 </style>
