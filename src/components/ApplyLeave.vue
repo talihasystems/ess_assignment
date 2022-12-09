@@ -11,6 +11,7 @@
                 class="mx-auto"
                 max-width="500px"
                 outlined
+                @click="leaveValue = leave"
             >
                 <v-list-item three-line>
                 <v-list-item-content>
@@ -37,7 +38,7 @@
             </v-col>
         </v-row>
 
-      <v-form v-model="valid">
+      <v-form>
   
       <v-row>
       <v-col
@@ -46,9 +47,9 @@
       >
         <v-menu
           ref="menu"
-          v-model="startMenue"
+          v-model="startMenu"
           :close-on-content-click="false"
-          :return-value.sync="dates"
+          
           transition="scale-transition"
           offset-y
           min-width="auto"
@@ -81,7 +82,7 @@
           ref="menu"
           v-model="endMenue"
           :close-on-content-click="false"
-          :return-value.sync="dates"
+          
           transition="scale-transition"
           offset-y
           min-width="auto"
@@ -144,11 +145,17 @@ export default {
       this.$store.dispatch("fetchLeaves"); 
     }
   },
+  watch: {
+    leaveValue(newleaveValue, oldleaveValue) {
+      console.log('old and new Grade', oldleaveValue,  newleaveValue)
+    }
+  },
   data: () => ({
       startDate: '',
       endDate: '',
       startMenu: false,
       endMenue: false,
+      leaveValue : ''
   }),
 };
 </script>
