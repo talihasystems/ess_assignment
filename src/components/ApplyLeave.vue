@@ -1,12 +1,25 @@
 <template>
     <v-container>
-        <v-card>
-        <v-row>
-            <v-col
-            v-for="(leave, n) in $store.state.leaves"
-            :key="n"
-            >
+      <v-card>
+      
 
+      <v-row  v-if="leaveValue" class="selectLeaveDetails">
+        <div>
+          <strong>{{leaveValue?.leave_Name}}</strong> | Total {{leaveValue?.total}} | Requested {{leaveValue?.requestedLeaves}} | Remaining {{leaveValue?.availLeaves}}
+        </div>
+        <v-button @click="leaveValue = ''">
+          <v-icon>
+            mdi-close-circle
+          </v-icon>
+        </v-button>
+      </v-row>
+
+
+      <v-row v-else>
+        <v-col
+          v-for="(leave, n) in $store.state.leaves"
+          :key="n"
+        >
             <v-card
                 class="mx-auto"
                 max-width="500px"
@@ -35,8 +48,10 @@
                
                 </v-list-item>
             </v-card>
-            </v-col>
-        </v-row>
+        </v-col>
+      </v-row>
+
+     
 
       <v-form>
   
@@ -131,7 +146,7 @@
         </v-btn>
       </v-row>
       
-    </v-form>
+      </v-form>
     </v-card>
     </v-container>
     
@@ -172,4 +187,10 @@ export default {
 .buttonStyle{
   justify-content: flex-end;
 }
+.selectLeaveDetails{
+    background: #f9fbff;
+    justify-content: space-between;
+    padding: 15px;
+}
 </style>
+
