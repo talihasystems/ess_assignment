@@ -1,8 +1,6 @@
 <template>
     <v-container>
       <v-card>
-      
-
       <v-row  v-if="leaveValue" class="selectLeaveDetails">
         <div>
           <strong>{{leaveValue?.leave_Name}}</strong> | Total {{leaveValue?.total}} | Requested {{leaveValue?.requestedLeaves}} | Remaining {{leaveValue?.availLeaves}}
