@@ -1,5 +1,9 @@
 <template>
+    
     <v-container>
+      <v-alert v-if="$store.state.error"
+        :timeout="-1"
+        type="error">{{$store.state.error}}</v-alert>
       <v-card>
       <v-row  v-if="leaveValue" class="selectLeaveDetails">
         <div>
@@ -50,8 +54,10 @@
       </v-row>
 
      
-
-      <v-form>
+      
+      <v-form
+        @submit.prevent="createLeave"
+      >
   
       <v-row>
       <v-col
@@ -125,6 +131,7 @@
           md="12"
         >
           <v-textarea
+            v-model="reason"
             label="Reason"
             outlined
             required
@@ -142,11 +149,15 @@
         >
           Submit for Approval
         </v-btn>
+        
       </v-row>
       
       </v-form>
-    </v-card>
+      </v-card>
+      
     </v-container>
+
+    
     
 </template>
 
@@ -157,19 +168,45 @@ export default {
     if (this.$store.state.leaves.length == 0) {
       this.$store.dispatch("fetchLeaves"); 
     }
+    if(this.$store.state.error){
+      this.hide_alert();
+    }
   },
+  methods: {
+    createLeave: function () {
+      let dataBody = {
+        startDate: this.startDate,
+        endDate: this.endDate,
+        leaveType: this.leaveValue.leave_Name,
+        email: 'taliha.arif@systemsltd.com',
+        reason: this.reason
+      }
+      console.log('data body in appl', dataBody)
+      this.$store.dispatch("applyLeave", dataBody); 
+    },
+    hide_alert: function (event) {
+      window.setInterval(() => {
+        this.$store.state.error = '';
+      }, 2000)    
+    }
+  },
+
   watch: {
     leaveValue(newleaveValue, oldleaveValue) {
       console.log('old and new Grade', oldleaveValue,  newleaveValue)
     }
   },
+  
   data: () => ({
       startDate: '',
       endDate: '',
       startMenu: false,
       endMenue: false,
-      leaveValue : ''
+      leaveValue : '',
+      reason : '',
+
   }),
+
 };
 </script>
 
