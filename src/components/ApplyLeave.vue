@@ -7,7 +7,7 @@
       <v-card>
       <v-row  v-if="leaveValue" class="selectLeaveDetails">
         <div>
-          <strong>{{leaveValue?.leave_Name}}</strong> | Total {{leaveValue?.total}} | Requested {{leaveValue?.requestedLeaves}} | Remaining {{leaveValue?.availLeaves}}
+          <strong>{{leaveValue?.leave_Name}}</strong> | Total {{leaveValue?.total}} | Requested {{leaveValue?.requestedLeaves}} | Remaining {{leaveValue?.availableLeaves}}
         </div>
         <v-button @click="leaveValue = ''">
           <v-icon>
