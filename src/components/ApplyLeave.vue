@@ -162,6 +162,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "ApplyLeave",
   mounted() {
@@ -173,7 +174,7 @@ export default {
     }
   },
   methods: {
-    createLeave: function () {
+    createLeave: async function () {
       let dataBody = {
         startDate: this.startDate,
         endDate: this.endDate,
@@ -181,8 +182,12 @@ export default {
         email: 'taliha.arif@systemsltd.com',
         reason: this.reason
       }
-      console.log('data body in appl', dataBody)
-      this.$store.dispatch("applyLeave", dataBody); 
+      const result = await axios.post("http://localhost:5000/leaves/create", dataBody)
+      if(result.status === 200){
+        this.$router.push("/leaves")
+      } else {
+        
+      }
     },
     hide_alert: function (event) {
       window.setInterval(() => {
