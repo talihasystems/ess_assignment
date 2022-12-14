@@ -1,6 +1,7 @@
 <template>
     <div>
         <SideBar />
+        <ShowLeaves/>
         <div class="text-center">
             <v-button @click="callCreateLeave">
                 <v-avatar
@@ -20,9 +21,11 @@
 
 <script>
   import SideBar from '../components/SideBar.vue'
+  import ShowLeaves from '../components/ShowLeaves.vue'
   export default {
     components: {
       SideBar,
+      ShowLeaves
     },
     methods: {
         callCreateLeave() {
