@@ -1,8 +1,5 @@
 <template>
   <v-container>
-    <v-alert v-if="$store.state.error" :timeout="-1" type="error">{{
-      $store.state.error
-    }}</v-alert>
     <v-card>
       <v-row v-if="leaveValue" class="selectLeaveDetails">
         <div>
@@ -129,14 +126,12 @@
 
 <script>
 import axios from "axios";
+import Vue from "vue";
 export default {
   name: "ApplyLeave",
   mounted() {
     if (this.$store.state.leaves.length == 0) {
       this.$store.dispatch("fetchLeaves");
-    }
-    if (this.$store.state.error) {
-      this.hide_alert();
     }
   },
   methods: {
@@ -152,15 +147,17 @@ export default {
         "http://localhost:5000/leaves/create",
         dataBody
       );
+      console.log("res", result);
       if (result.status === 200) {
         this.$router.push("/leaves");
+       
       } else {
+        Vue.$toast.open({
+          message: "Something went wrong!",
+          type: "error",
+          // all of other options may go here
+        });
       }
-    },
-    hide_alert: function (event) {
-      window.setInterval(() => {
-        this.$store.state.error = "";
-      }, 2000);
     },
   },
 
