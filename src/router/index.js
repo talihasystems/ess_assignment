@@ -1,6 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import Register from "../views/Register.vue";
+import Login from "../views/Login.vue";
+import TimesheetManagement from "../views/TimesheetManagement";
+import LeaveManagement from "../views/LeaveManagement"
+import CreateLeave from "../views/CreateLeave"
+import firebase from "firebase";
 
 Vue.use(VueRouter)
 
@@ -9,6 +15,31 @@ const routes = [
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register
+  },
+  {
+    path: '/timesheet',
+    name: 'timesheet',
+    component: TimesheetManagement
+  },
+  {
+    path: '/leaves',
+    name: 'leaves',
+    component: LeaveManagement
+  },
+  {
+    path: '/create-leave',
+    name: 'createLeave',
+    component: CreateLeave
   },
   {
     path: '/about',
@@ -27,5 +58,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const isAuthenticated = firebase.auth().currentUser;
+  console.log("isauthenticated",requiresAuth, isAuthenticated);
+  if (requiresAuth && !isAuthenticated) {
+    next("/login");
+  } else {
+    next();
+  }
+});
+
+
+
 
 export default router
