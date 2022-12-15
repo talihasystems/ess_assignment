@@ -24,6 +24,11 @@
         <v-btn type="submit" x-large color="primary" style="margin-left: 30px">
           Sign In
         </v-btn>
+
+        <p>
+          Do not have account
+          <router-link :to="{ name: 'register' }">Register?</router-link>
+        </p>
       </v-form>
     </v-card>
   </div>

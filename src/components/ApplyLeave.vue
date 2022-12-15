@@ -143,20 +143,26 @@ export default {
         email: "taliha.arif@systemsltd.com",
         reason: this.reason,
       };
-      const result = await axios.post(
-        "http://localhost:5000/leaves/create",
-        dataBody
-      );
-      console.log("res", result);
-      if (result.status === 200) {
+      try {
+        let result = await axios.post(
+          "http://localhost:5000/leaves/create",
+          dataBody
+        );
+        this.$store.dispatch("fetchLeaves");
         this.$router.push("/leaves");
-       
-      } else {
         Vue.$toast.open({
-          message: "Something went wrong!",
-          type: "error",
+          message: result.data.message,
+          type: "success",
           // all of other options may go here
         });
+      } catch (err) {
+        if (err.response) {
+          Vue.$toast.open({
+            message: err.response.data.message,
+            type: "error",
+            // all of other options may go here
+          });
+        }
       }
     },
   },
