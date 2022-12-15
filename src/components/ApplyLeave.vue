@@ -47,7 +47,7 @@
         </v-col>
       </v-row>
 
-      <v-form @submit.prevent="createLeave">
+      <v-form @submit.prevent="createLeave" ref="form">
         <v-row>
           <v-col cols="12" sm="6">
             <v-menu
@@ -62,6 +62,7 @@
                 <v-text-field
                   v-model="startDate"
                   label="Start Date"
+                  :rules="rules"
                   append-icon="mdi-calendar"
                   readonly
                   outlined
@@ -86,6 +87,7 @@
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
                   v-model="endDate"
+                  :rules="rules"
                   label="End Date"
                   append-icon="mdi-calendar"
                   outlined
@@ -103,6 +105,7 @@
             <v-textarea
               v-model="reason"
               label="Reason"
+              :rules="rules"
               outlined
               required
             ></v-textarea>
@@ -129,6 +132,14 @@ import axios from "axios";
 import Vue from "vue";
 export default {
   name: "ApplyLeave",
+  data: () => ({
+    startDate: "",
+    endDate: "",
+    startMenu: false,
+    endMenue: false,
+    leaveValue: "",
+    reason: "",
+  }),
   mounted() {
     if (this.$store.state.leaves.length == 0) {
       this.$store.dispatch("fetchLeaves");
@@ -165,22 +176,39 @@ export default {
         }
       }
     },
-  },
-
-  watch: {
-    leaveValue(newleaveValue, oldleaveValue) {
-      console.log("old and new Grade", oldleaveValue, newleaveValue);
+    validateField() {
+      this.$refs.form.validate();
     },
   },
 
-  data: () => ({
-    startDate: "",
-    endDate: "",
-    startMenu: false,
-    endMenue: false,
-    leaveValue: "",
-    reason: "",
-  }),
+  computed: {
+    rules() {
+      const rules = [];
+
+      if (this.startDate.length === 0) {
+        const rule = `Field is required.`;
+        rules.push(rule);
+      }
+
+      if (this.endDate.length === 0) {
+        const rule = `Field is required.`;
+        rules.push(rule);
+      }
+
+      if (this.reason.length === 0) {
+        const rule = `Field is required.`;
+        rules.push(rule);
+      }
+
+      return rules;
+    },
+  },
+
+  watch: {
+    startDate: "validateField",
+    endDate: "validateField",
+    reason: "validateField",
+  },
 };
 </script>
 
